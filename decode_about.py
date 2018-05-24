@@ -17,7 +17,7 @@ def decode(preds,lens,lstm_decoder,alpha):
            ytu = nn.functional.softmax(y_i+xi,dim=0)
            max_value,yi=torch.max(ytu,0)
            yi_index=int(yi.data)
-           if (loop_count>1 and yi_index==yi_index_old) or yi_index==0:
+           if (loop_count>1 and yi_index==yi_index_old) or yi_index==0 or loop_count>4: #abandon dead loop
               break
            if yi_index!=0:
               yi_index_old=yi_index
