@@ -13,11 +13,10 @@ def decode(preds,lens,lstm_decoder,alpha):
          while True:
            loop_count+=1
            y_i=y[0][0][:]
-           ytu = nn.functional.softmax(y_i+xi,dim=0)
+           ytu = y_i+xi
            max_value,yi=torch.max(ytu,0)
            yi_index=int(yi.data)
            if yi_index==0 or loop_count>4:
-
               break
            if yi_index!=0:
               t=torch.IntTensor([yi_index-1])
